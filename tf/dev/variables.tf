@@ -5,5 +5,5 @@ variable "aws_region" {
 
 variable "github_api_version" {
     type = string
-    default = "0.1.0"
+    default = "0.1.1"
 }
