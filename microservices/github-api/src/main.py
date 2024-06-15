@@ -1,8 +1,20 @@
-import os
+import boto3
+import json
+
 from flask import Flask, jsonify, request
+
 from github import get_user, get_user_repos
+import env as envs
+
+
+sqs = boto3.client("sqs", region_name=envs.AWS_REGION)
+queue = envs.FORK_REPO_QUEUE_URL
+if not queue:
+    raise ValueError("FORK_REPO_QUEUE_URL is empty")
+
 
 app = Flask(__name__)
+
 
 INDEX_HTML = """
     <h1>GitHub API</h1>
@@ -12,7 +24,7 @@ INDEX_HTML = """
 
 @app.route("/")
 def index():
-    return INDEX_HTML.format(version=os.getenv("GITHUB_API_VERSION", "-"))
+    return INDEX_HTML.format(version=envs.GITHUB_API_VERSION)
 
 
 @app.route("/_health")
@@ -40,5 +52,17 @@ def github_user_repos():
     return jsonify({"user_repos": user_repos})
 
 
+@app.route("/clone-repo", methods=["GET"])
+def clone_repo():
+    repo_url = request.args.get("repo_url")
+    if not repo_url:
+        return jsonify({"error": "Missing repo_url"}), 400
+    response = sqs.send_message(
+        QueueUrl=queue,
+        MessageBody=json.dumps({"repo_url": repo_url}),
+    )
+    return jsonify({"message": "Repository clone scheduled.", "sqs_response": response})
+
+
 if __name__ == "__main__":
-    app.run(port=3000, debug=True)
+    app.run(port = envs.FLASK_PORT, debug=True)

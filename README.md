@@ -32,3 +32,8 @@ terraform apply
 ```
 
 > Utilizar o Registry público da AWS (evita o erro de pulling que dá no DockerHub)
+
+
+TAREFA
+- Novo endpoint que recebe um repositório no GitHub e salva uma mensagem no SQS
+- Criar um novo microservico que escuta essa fila. Toda vez que encontra uma mensagem, ele clona o repositório e salva em um S3.

@@ -37,6 +37,18 @@ resource "aws_ecs_task_definition" "github_api" {
         {
           "name": "GITHUB_API_VERSION",
           "value": "${var.github_api_version}"
+        },
+        {
+          "name": "FLASK_PORT",
+          "value": "${var.github_api_internal_port}"
+        },
+        {
+          "name": "FORK_REPO_QUEUE_URL",
+          "value": "${aws_sqs_queue.sqs_queue.id}"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "${var.aws_region}"
         }
       ],
       "portMappings": [
@@ -53,8 +65,8 @@ resource "aws_ecs_task_definition" "github_api" {
 resource "aws_security_group" "github_api_ecs_sg" {
     name = "ecs-sg"
     ingress {
-        from_port = 3000
-        to_port = 3000
+        from_port = var.github_api_internal_port
+        to_port = var.github_api_internal_port
         protocol = "tcp"
         security_groups = [ aws_security_group.load_balancer_sg.id ]
     }
