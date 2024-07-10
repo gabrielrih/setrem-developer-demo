@@ -1,5 +1,8 @@
-from src.queue import FakeQueueManager
-from src.repo import GitCloner, CompactorProxy
+from typing import Dict
+
+import src.env as envs
+
+from src.manager import Manager
 from src.util.logger import Logger
 
 
@@ -7,20 +10,10 @@ logger = Logger.get_logger(__name__)
 
 
 if __name__ == '__main__':
-    queue = FakeQueueManager()
-    cloner = GitCloner()
+    manager = Manager(dry_run = envs.DRY_RUN)
+    logger.info('Waiting for messages...')
     while True:
-        message: str = queue.receive_message()
-        logger.info(f'Received {message =}')
-
-        repo_url = message['repo_url']
-        path: str = cloner.clone_repo(url = repo_url)
-        logger.info(f'Repository cloned on {path =}')
-
-        compactor = CompactorProxy(path = path)
-        output_file = compactor.compact()
-        logger.info(f'The compacted file is {output_file}')
-
-        # FIX IT
-        # Send data to S3
-        logger.info('Sending it to S3')
+        message: Dict = manager.receive_a_single_message()
+        path: str = manager.clone_repo(message = message)        
+        file_path: str = manager.compact_folder(path)
+        manager.update_file_to_bucket(file_path = file_path)

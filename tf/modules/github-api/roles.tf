@@ -22,7 +22,7 @@ resource "aws_iam_role_policy_attachment" "task_execution_role_policy_attachment
 data "aws_iam_policy_document" "task_execution_role_policy" {
   statement {
     actions   = ["sqs:*"]
-    resources = [aws_sqs_queue.sqs_queue.arn]
+    resources = [var.aws_sqs_queue_arn]
   }
 }
 

@@ -1,3 +1,3 @@
 resource "aws_sqs_queue" "sqs_queue" {
-    name = "github-repos-to-fork"
+    name = var.aws_sqs_queue_name
 }

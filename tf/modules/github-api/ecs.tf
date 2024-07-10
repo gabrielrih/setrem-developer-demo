@@ -44,7 +44,7 @@ resource "aws_ecs_task_definition" "github_api" {
         },
         {
           "name": "FORK_REPO_QUEUE_URL",
-          "value": "${aws_sqs_queue.sqs_queue.id}"
+          "value": "${var.aws_sqs_queue_id}"
         },
         {
           "name": "AWS_REGION",
@@ -86,7 +86,7 @@ resource "aws_ecs_service" "github_api" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [aws_default_subnet.default_a.id]
+    subnets          = [var.aws_default_subnet_a_id]
     security_groups  = [aws_security_group.github_api_ecs_sg.id]
     assign_public_ip = true
   }

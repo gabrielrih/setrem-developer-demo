@@ -5,5 +5,15 @@ variable "aws_region" {
 
 variable "github_api_version" {
     type = string
-    default = "0.1.5"
+    default = "0.1.6"
+}
+
+variable "github_clone_version" {
+    type = string
+    default = "0.1.0"
+}
+
+variable "common_aws_sqs_queue_name" {
+    type = string
+    default = "github-repos-to-fork"
 }
