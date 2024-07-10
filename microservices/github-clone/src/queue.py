@@ -13,11 +13,21 @@ from src.util.logger import Logger
 logger = Logger.get_logger(__name__)
 
 
+class QueueManagerBuilder:
+    @staticmethod
+    def build_real_implementation():
+        return SQSQueueManager()
+
+    @staticmethod
+    def build_fake_implementation():
+        return FakeQueueManager()
+
+
 class QueueManager(ABC):
     def __init__(self):
         self.queue = envs.FORK_REPO_QUEUE_URL
         if not self.queue:
-            raise ValueError("FORK_REPO_QUEUE_URL is empty")
+            raise ValueError("The environment variable FORK_REPO_QUEUE_URL should be empty")
     
     @abstractmethod
     def receive_a_single_message(self) -> str: pass

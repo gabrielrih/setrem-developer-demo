@@ -1,8 +1,25 @@
 from unittest import TestCase, mock
 from typing import List, Dict
 
-from src.queue import SQSQueueManager
+from src.queue import (
+    QueueManagerBuilder,
+    SQSQueueManager,
+    FakeQueueManager
+)
 from src.util.converter import json_to_string
+
+
+class TestQueueManagerBuilder(TestCase):
+    def setUp(self):
+        self.builder = QueueManagerBuilder()
+
+    def test_build_real_implementation(self):
+        bucket = self.builder.build_real_implementation()
+        self.assertIsInstance(bucket, SQSQueueManager)
+
+    def test_buil_fake_implementation(self):
+        bucket = self.builder.build_fake_implementation()
+        self.assertIsInstance(bucket, FakeQueueManager)
 
 
 class TestSQSQueueManager(TestCase):

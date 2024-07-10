@@ -19,8 +19,7 @@ module "common" {
 #     aws_sqs_queue_arn = module.common.sqs_queue_arn
 # }
 
-# module "github-clone" {
-#     source = "../modules/github-clone"
-#     github_clone_version = var.github_clone_version
-#     aws_region = var.aws_region
-# }
+module "github-clone" {
+    source = "../modules/github-clone"
+    depends_on = [ module.common ]
+}
