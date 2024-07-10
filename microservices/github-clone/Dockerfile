@@ -7,5 +7,6 @@ RUN apt update
 RUN apt install git -y
 
 COPY ./src /app
+COPY main.py /app
 
 CMD ["python", "main.py"]
