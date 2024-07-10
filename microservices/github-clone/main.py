@@ -13,7 +13,8 @@ if __name__ == '__main__':
         message: str = queue.receive_message()
         logger.info(f'Received {message =}')
 
-        path: str = cloner.clone_repo(url = message)
+        repo_url = message['repo_url']
+        path: str = cloner.clone_repo(url = repo_url)
         logger.info(f'Repository cloned on {path =}')
 
         compactor = CompactorProxy(path = path)

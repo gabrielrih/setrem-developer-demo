@@ -19,7 +19,7 @@ class FakeQueueManager(QueueManager):
         self.is_first = True
         self.sleep_time_in_seconds = 60
 
-    def receive_message(self) -> str:
+    def receive_message(self) -> Dict:
         if self.is_first:
             self.is_first = False
             return self._get_fake_content()
@@ -27,7 +27,9 @@ class FakeQueueManager(QueueManager):
         return self._get_fake_content()
     
     def _get_fake_content(self) -> str:
-        return 'https://github.com/gabrielrih/setrem-developer-testing.git'
+        return {
+            'repo_url': 'https://github.com/gabrielrih/setrem-developer-testing.git'
+        }
 
 
 # class QueueManager:
