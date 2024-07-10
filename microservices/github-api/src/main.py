@@ -1,18 +1,11 @@
-import boto3
-import json
-
 from flask import Flask, jsonify, request
 
-from github import get_user, get_user_repos
+from .github import get_user, get_user_repos
+from .queue import QueueManager
 import env as envs
 
 
-sqs = boto3.client("sqs", region_name=envs.AWS_REGION)
-queue = envs.FORK_REPO_QUEUE_URL
-if not queue:
-    raise ValueError("FORK_REPO_QUEUE_URL is empty")
-
-
+queue = QueueManager()
 app = Flask(__name__)
 
 
@@ -57,9 +50,10 @@ def clone_repo():
     repo_url = request.args.get("repo_url")
     if not repo_url:
         return jsonify({"error": "Missing repo_url"}), 400
-    response = sqs.send_message(
-        QueueUrl=queue,
-        MessageBody=json.dumps({"repo_url": repo_url}),
+    response = queue.send_message(
+        data = {
+            'repo_url': repo_url
+        }
     )
     return jsonify({"message": "Repository clone scheduled.", "sqs_response": response})
 
