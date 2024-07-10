@@ -17,7 +17,7 @@ resource "aws_security_group" "load_balancer_sg" {
 resource "aws_lb" "github_api_lb" {
     name = "github-api-lb"
     load_balancer_type = "application"
-    subnets = [aws_default_subnet.default_a.id, aws_default_subnet.default_b.id]
+    subnets = [var.aws_default_subnet_a_id, var.aws_default_subnet_b_id]
     security_groups = [aws_security_group.load_balancer_sg.id]
 }
 
@@ -25,7 +25,7 @@ resource "aws_lb_target_group" "github_api_lb_tg" {
     port = var.github_api_internal_port
     protocol = "HTTP"
     target_type = "ip"
-    vpc_id = aws_default_vpc.default.id
+    vpc_id = var.aws_default_vpc_id
     health_check {
         enabled = true
         path = "/_health"
