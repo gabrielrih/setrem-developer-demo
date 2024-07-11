@@ -22,9 +22,34 @@ pytest
 
 
 ## Deploying on AWS
-TO DO
 
-<!--
-- Credenciais da AWS
-- Instalar TerraForm e Docker na máquina.
--->
+### Configuring AWS
+- You must create an AWS account.
+- You must create an user and an access key with admin privileges.
+- Create a configuration file to be used by Terraform.
+
+```sh
+mkdir /Users/usuario/.aws
+cp credentials /Users/usuario/.aws/
+```
+
+> This same configu file are used by ```aws cli```.
+
+The configuration file will be similar to this:
+```conf
+[default]
+aws_access_key_id=put my access key here
+aws_secret_access_key=put my secret access key here
+```
+
+## Deploying on AWS
+
+The creation of all the necessary resources plus the deploy of the microservices are done using Terraform.
+```sh
+cd tf/dev
+terraform init
+terraform plan
+terraform apply --auto-approve
+```
+
+> Note that you must install terraform before run it.
