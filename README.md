@@ -28,6 +28,8 @@ Para testar você pode executar:
 
 
 ## Terraform
+
+Dependências pra rodar o TF: ter o docker na máquina
 ```sh
 cd tf/dev
 terraform init
