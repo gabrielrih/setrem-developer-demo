@@ -55,14 +55,17 @@ class TestClone(TestCase):
         return True
 
 
-class TestFolderCompactor(TestCase):
+class TestCompactorProxy(TestCase):
     def setUp(self):
-        self.folder = self.create_fake_folder()
+        self.folder = self.create_empty_folder()
         self.compactor = CompactorProxy(path = self.folder)
 
-    def create_fake_folder(self) -> str:
-        # FIX IT
-        return '/tmp/oqkvakuqod'
+    def create_empty_folder(self) -> str:
+        path = '/tmp/oqkkkkuqod'
+        if os.path.exists(path):
+            return path
+        os.mkdir(path)
+        return path
     
     def test_compact(self):
         # Given
