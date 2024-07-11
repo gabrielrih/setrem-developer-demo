@@ -12,6 +12,17 @@ from src.util.converter import json_to_string
 class TestQueueManagerBuilder(TestCase):
     def setUp(self):
         self.builder = QueueManagerBuilder()
+        self.mock_queue_url = mock.patch('src.queue.envs.FORK_REPO_QUEUE_URL', return_value = 'fake_value')
+        self.start_mocks()
+
+    def start_mocks(self):
+        self.mock_queue_url.start()
+
+    def tearDown(self):
+        self.stop_mocks()
+
+    def stop_mocks(self):
+        self.mock_queue_url.stop()
 
     def test_build_real_implementation(self):
         bucket = self.builder.build_real_implementation()
@@ -38,6 +49,17 @@ class TestSQSQueueManager(TestCase):
                 }
             }
         ]
+        self.mock_queue_url = mock.patch('src.queue.envs.FORK_REPO_QUEUE_URL', return_value = 'fake_value')
+        self.start_mocks()
+
+    def start_mocks(self):
+        self.mock_queue_url.start()
+
+    def tearDown(self):
+        self.stop_mocks()
+
+    def stop_mocks(self):
+        self.mock_queue_url.stop()
 
     @mock.patch('src.queue.SQSQueueManager.delete_message')
     @mock.patch('src.queue.SQSQueueManager.wait_until_receive_messages')
