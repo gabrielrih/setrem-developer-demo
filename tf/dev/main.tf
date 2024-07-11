@@ -22,4 +22,6 @@ module "github-api" {
 module "github-clone" {
     source = "../modules/github-clone"
     depends_on = [ module.common ]
+    github_clone_version = var.github_clone_version
+    aws_region =var.aws_region
 }
