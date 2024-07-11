@@ -27,7 +27,7 @@ class QueueManager(ABC):
     def __init__(self):
         self.queue = envs.FORK_REPO_QUEUE_URL
         if not self.queue:
-            raise ValueError("The environment variable FORK_REPO_QUEUE_URL should be empty")
+            raise ValueError("The environment variable FORK_REPO_QUEUE_URL should not be empty")
     
     @abstractmethod
     def receive_a_single_message(self) -> str: pass

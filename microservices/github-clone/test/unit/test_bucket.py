@@ -10,6 +10,17 @@ from src.bucket import (
 class TestBucketManagerBuilder(TestCase):
     def setUp(self):
         self.builder = BucketManagerBuilder()
+        self.mock_bucket_name = mock.patch('src.bucket.envs.S3_BUCKET_NAME', return_value = 'fake_value')
+        self.start_mocks()
+
+    def start_mocks(self):
+        self.mock_bucket_name.start()
+
+    def tearDown(self):
+        self.stop_mocks()
+
+    def stop_mocks(self):
+        self.mock_bucket_name.stop()
 
     def test_build_real_implementation(self):
         bucket = self.builder.build_real_implementation()
@@ -23,6 +34,17 @@ class TestBucketManagerBuilder(TestCase):
 class TestS3BucketManager(TestCase):
     def setUp(self):
         self.fake_source_path = '/tmp/fake-source-path'
+        self.mock_bucket_name = mock.patch('src.bucket.envs.S3_BUCKET_NAME', return_value = 'fake_value')
+        self.start_mocks()
+
+    def start_mocks(self):
+        self.mock_bucket_name.start()
+
+    def tearDown(self):
+        self.stop_mocks()
+
+    def stop_mocks(self):
+        self.mock_bucket_name.stop()
 
     @mock.patch('boto3.client')
     def test_upload_file_when_success(self, mock_boto3_client):

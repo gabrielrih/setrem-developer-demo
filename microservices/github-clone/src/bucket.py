@@ -25,7 +25,7 @@ class BucketManager(ABC):
     def __init__(self):
         self.bucket_name = envs.S3_BUCKET_NAME
         if not self.bucket_name:
-            raise ValueError('The environment variable S3_BUCKET_NAME should be empty')
+            raise ValueError('The environment variable S3_BUCKET_NAME should not be empty')
 
     @abstractmethod
     def upload_file(self, source_path: str, target_path: str) -> None: pass
