@@ -22,6 +22,9 @@ pytest
 
 
 ## Deploying on AWS
+TO DO
 
+<!--
 - Credenciais da AWS
 - Instalar TerraForm e Docker na máquina.
+-->
