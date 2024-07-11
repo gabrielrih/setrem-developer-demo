@@ -27,7 +27,7 @@ jobs:
             if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt; fi
       - name: Unit test
         run: |
-            pytest
+            pytest microservices/github-clone
   github_api_unit_tests:
     runs-on: ubuntu-latest
     name: Unit tests for github-api MS
@@ -45,4 +45,4 @@ jobs:
             if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt; fi
       - name: Unit test
         run: |
-            pytest
+            pytest microservices/github-api
