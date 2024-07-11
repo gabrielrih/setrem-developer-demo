@@ -1,7 +1,3 @@
-resource "aws_ecs_cluster" "github_api" {
-  name = "github-api-cluster"
-}
-
 resource "aws_cloudwatch_log_group" "github_api" {
   name = "/ecs/service/github-api"
 }
@@ -62,7 +58,7 @@ resource "aws_ecs_task_definition" "github_api" {
   DEFINITION
 }
 
-resource "aws_security_group" "github_api_ecs_sg" {
+resource "aws_security_group" "github_api" {
     name = "ecs-sg"
     ingress {
         from_port = var.github_api_internal_port
@@ -80,14 +76,14 @@ resource "aws_security_group" "github_api_ecs_sg" {
 
 resource "aws_ecs_service" "github_api" {
   name            = "github-api-service"
-  cluster         = aws_ecs_cluster.github_api.id
+  cluster         = var.aws_ecs_cluster_id
   task_definition = aws_ecs_task_definition.github_api.arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
   network_configuration {
     subnets          = [var.aws_default_subnet_a_id]
-    security_groups  = [aws_security_group.github_api_ecs_sg.id]
+    security_groups  = [aws_security_group.github_api.id]
     assign_public_ip = true
   }
 

@@ -15,10 +15,15 @@ output "default_subnet_b_id" {
 
 output "sqs_queue_id" {
     description = "SQS queue id"
-    value = aws_sqs_queue.sqs_queue.id
+    value = aws_sqs_queue.common.id
 }
 
 output "sqs_queue_arn" {
     description = "SQS queue arn"
-    value = aws_sqs_queue.sqs_queue.arn
+    value = aws_sqs_queue.common.arn
+}
+
+output "ecs_cluster_id" {
+    description = "ECS cluster id"
+    value = aws_ecs_cluster.common.id
 }

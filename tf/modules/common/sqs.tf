@@ -1,3 +1,3 @@
-resource "aws_sqs_queue" "sqs_queue" {
+resource "aws_sqs_queue" "common" {
     name = var.aws_sqs_queue_name
 }

@@ -23,6 +23,10 @@ variable "aws_default_subnet_b_id" {
     type = string
 }
 
+variable "aws_ecs_cluster_id" {
+    type = string
+}
+
 variable "aws_sqs_queue_id" {
     type = string
 }

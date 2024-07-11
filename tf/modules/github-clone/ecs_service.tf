@@ -1,7 +1,3 @@
-resource "aws_ecs_cluster" "github_clone" {
-  name = "github-api-clone"
-}
-
 resource "aws_cloudwatch_log_group" "github_clone" {
   name = "/ecs/service/github-clone"
 }
@@ -53,14 +49,8 @@ resource "aws_ecs_task_definition" "github_clone" {
   DEFINITION
 }
 
-resource "aws_security_group" "github_clone_ecs_sg" {
-    name = "ecs-another-sg"
-    # ingress {
-    #     from_port = var.github_api_internal_port
-    #     to_port = var.github_api_internal_port
-    #     protocol = "tcp"
-    #     security_groups = [ aws_security_group.load_balancer_sg.id ]
-    # }
+resource "aws_security_group" "github_clone" {
+    name = "ecs-github-clone-sg"
     egress {
         from_port = 0
         to_port = 0
@@ -71,18 +61,14 @@ resource "aws_security_group" "github_clone_ecs_sg" {
 
 resource "aws_ecs_service" "github_clone" {
   name            = "github-clone-service"
-  cluster         = aws_ecs_cluster.github_clone.id
+  cluster         = var.aws_ecs_cluster_id
   task_definition = aws_ecs_task_definition.github_clone.arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
   network_configuration {
     subnets          = [var.aws_default_subnet_a_id]
-    security_groups  = [aws_security_group.github_clone_ecs_sg.id]
+    security_groups  = [aws_security_group.github_clone.id]
     assign_public_ip = true
   }
-
-  #load_balancer {}
-
-  #depends_on = [aws_lb_listener.github_api_lb_listener]
 }

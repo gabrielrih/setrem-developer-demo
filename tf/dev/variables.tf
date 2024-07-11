@@ -17,3 +17,8 @@ variable "common_aws_sqs_queue_name" {
     type = string
     default = "github-repos-to-fork"
 }
+
+variable "aws_s3_bucket_name" {
+    type = string
+    default = "repositories-edc1c5c1-1a23-4ca7-8458-4d70b4646318"
+}
