@@ -6,10 +6,6 @@
 terraform.tfstate
 terraform.tfstate.backup
 
-# For testing
-#  Used on unit tests for the github-clone microservice
-#cloned-repo
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

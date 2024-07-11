@@ -11,4 +11,4 @@ This microservice is listening to a AWS SQS queue waiting for messages. When it 
 }
 ```
 
-- See [./src/env](./src/env.py) to see the required environment variables.
+- See [./src/env](./src/env.py) to know the required environment variables.
