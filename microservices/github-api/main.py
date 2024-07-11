@@ -1,8 +1,9 @@
 from flask import Flask, jsonify, request
 
-from .github import get_user, get_user_repos
-from .queue import QueueManager
-import env as envs
+import src.env as envs
+
+from src.github import get_user, get_user_repos
+from src.queue import QueueManager
 
 
 queue = QueueManager()

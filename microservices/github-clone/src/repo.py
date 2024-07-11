@@ -3,7 +3,7 @@ import shutil
 from abc import ABC, abstractmethod
 from git import Repo
 
-from .util.generator import generate_random_string
+from src.util.generator import generate_random_string
 
 
 class GitCloner:

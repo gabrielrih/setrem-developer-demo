@@ -6,6 +6,7 @@ RUN pip install -r requirements.txt
 RUN apt update
 RUN apt install git -y
 
-COPY ./src /app
+COPY ./src /app/src
+COPY main.py /app
 
 CMD ["python", "main.py"]

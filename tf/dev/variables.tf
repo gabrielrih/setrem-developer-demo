@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "github_api_version" {
     type = string
-    default = "0.1.6"
+    default = "0.1.0"
 }
 
 variable "github_clone_version" {
