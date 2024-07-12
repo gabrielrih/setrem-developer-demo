@@ -89,11 +89,3 @@ jobs:
           files: ./coverage-github-clone.xml,./coverage-github-api.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-  deploy:
-    runs-on: ubuntu-latest
-    name: Deploying on AWS
-    environment: deploy  # requires approval
-    if: github.head_ref == 'main'
-    needs: [code_coverage]
-    steps:
-      - uses: actions/checkout@v3
