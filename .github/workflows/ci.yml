@@ -28,20 +28,14 @@ jobs:
       - name: Unit test
         run: |
           coverage run -m pytest microservices/github-clone
-          coverage xml
+          coverage xml -o coverage-github-clone.xml
           echo "Code coverage report:"
           coverage report
-      # - name: Upload coverage reports to Codecov
-      #   uses: codecov/codecov-action@v4.0.1
-      #   with:
-      #     files: ./coverage.xml
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: coverage-github-clone.xml
-          path: ./coverage.xml
+          path: ./coverage-github-clone.xml
   unit_tests_github_api:
     runs-on: ubuntu-latest
     name: Unit tests for github-api MS
@@ -60,20 +54,14 @@ jobs:
       - name: Unit test
         run: |
           coverage run -m pytest microservices/github-api
-          coverage xml
+          coverage xml -o coverage-github-api.xml
           echo "Code coverage report:"
           coverage report
-      # - name: Upload coverage reports to Codecov
-      #   uses: codecov/codecov-action@v4.0.1
-      #   with:
-      #     files: ./coverage.xml
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: coverage-github-api.xml
-          path: ./coverage.xml
+          path: ./coverage-github-api.xml
   code_coverage:
     runs-on: ubuntu-latest
     name: Sending code coverage to Codecov
@@ -92,6 +80,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage-github-api.xml
+      - name: Debug
+        run: |
+          ls -ls
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:

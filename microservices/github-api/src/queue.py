@@ -11,7 +11,7 @@ class QueueManager:
         self.sqs = boto3.client("sqs", region_name=envs.AWS_REGION)
         self.queue = envs.FORK_REPO_QUEUE_URL
         if not self.queue:
-            raise ValueError("FORK_REPO_QUEUE_URL is empty")
+            raise ValueError("FORK_REPO_QUEUE_URL should not be empty")
 
     def send_message(self, data: Dict):
         response = self.sqs.send_message(
