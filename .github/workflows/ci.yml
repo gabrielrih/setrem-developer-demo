@@ -62,9 +62,9 @@ jobs:
         with:
           name: coverage-github-api.xml
           path: ./coverage-github-api.xml
-  code_coverage:
+  coverage_sonar:
     runs-on: ubuntu-latest
-    name: Sending code coverage to Codecov
+    name: Code coverage + Sonar Cloud
     needs: [unit_tests_github_clone, unit_tests_github_api]
     steps:
       - uses: actions/checkout@v3
@@ -80,12 +80,14 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage-github-api.xml
-      - name: Debug
-        run: |
-          ls -ls
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
           files: ./coverage-github-clone.xml,./coverage-github-api.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
