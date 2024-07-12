@@ -40,7 +40,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: coverage.xml
+          name: coverage-github-clone.xml
           path: ./coverage.xml
   github_api_unit_tests:
     runs-on: ubuntu-latest
@@ -59,11 +59,18 @@ jobs:
             if [ -f requirements/dev.txt ]; then pip install -r requirements/dev.txt; fi
       - name: Unit test
         run: |
-            pytest microservices/github-api
-
-
-
-  #           - name: Upload coverage reports to Codecov
-  # uses: codecov/codecov-action@v4.0.1
-  # with:
-  #   token: ${{ secrets.CODECOV_TOKEN }}
+          coverage run -m pytest microservices/github-api
+          coverage xml
+          echo "Code coverage report:"
+          coverage report
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          files: ./coverage.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-github-api.xml
+          path: ./coverage.xml
