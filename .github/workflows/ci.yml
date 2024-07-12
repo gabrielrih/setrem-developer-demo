@@ -31,12 +31,6 @@ jobs:
           coverage xml
           echo "Code coverage report:"
           coverage report
-      # - name: Upload coverage reports to Codecov
-      #   uses: codecov/codecov-action@v4.0.1
-      #   with:
-      #     files: ./coverage.xml
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -63,12 +57,6 @@ jobs:
           coverage xml
           echo "Code coverage report:"
           coverage report
-      # - name: Upload coverage reports to Codecov
-      #   uses: codecov/codecov-action@v4.0.1
-      #   with:
-      #     files: ./coverage.xml
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
