@@ -75,7 +75,7 @@ jobs:
           name: coverage-github-api.xml
           path: ./coverage.xml
   code_coverage:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     name: Sending code coverage to Codecov
     steps:
       - uses: actions/checkout@v3
