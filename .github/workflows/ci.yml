@@ -31,12 +31,12 @@ jobs:
           coverage xml
           echo "Code coverage report:"
           coverage report
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          files: ./coverage.xml
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage reports to Codecov
+      #   uses: codecov/codecov-action@v4.0.1
+      #   with:
+      #     files: ./coverage.xml
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -63,14 +63,37 @@ jobs:
           coverage xml
           echo "Code coverage report:"
           coverage report
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          files: ./coverage.xml
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage reports to Codecov
+      #   uses: codecov/codecov-action@v4.0.1
+      #   with:
+      #     files: ./coverage.xml
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: coverage-github-api.xml
           path: ./coverage.xml
+  code_coverage:
+    runs-on: ubuntu-lates
+    name: Sending code coverage to Codecov
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
+      - name: Download artifact coverage-github-clone.xml
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-github-clone.xml
+      - name: Download artifact coverage-github-api.xml
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-github-api.xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          files: ./coverage-github-clone.xml,./coverage-github-api.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
