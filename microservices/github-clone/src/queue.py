@@ -81,7 +81,7 @@ class FakeQueueManager(QueueManager):
         time.sleep(self.sleep_time_in_seconds)
         return self._get_fake_content()
     
-    def _get_fake_content(self) -> str:
+    def _get_fake_content(self) -> Dict:
         return {
             'repo_url': 'https://github.com/gabrielrih/setrem-developer-testing.git'
         }

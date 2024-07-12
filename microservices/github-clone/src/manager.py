@@ -37,4 +37,4 @@ class Manager:
 
     def update_file_to_bucket(self, file_path: str) -> None:
         self.bucket.upload_file(source_path = file_path)
-        logger.info(f'Uploaded to bucket!')
+        logger.info('Uploaded to bucket!')
