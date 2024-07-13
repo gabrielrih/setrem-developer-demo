@@ -21,6 +21,7 @@ module "github-api" {
 }
 
 module "github-clone" {
+    count = var.is_to_deploy_github_clone_as_lambda == false ? 1 : 0
     source = "../modules/github-clone"
     depends_on = [ module.common ]
     github_clone_version = var.github_clone_version
@@ -28,6 +29,14 @@ module "github-clone" {
     aws_default_subnet_a_id = module.common.default_subnet_a_id
     aws_ecs_cluster_id = module.common.ecs_cluster_id
     aws_sqs_queue_id = module.common.sqs_queue_id
+    aws_sqs_queue_arn = module.common.sqs_queue_arn
+    aws_s3_bucket_name = var.aws_s3_bucket_name
+}
+
+module "gthub-clone-lambda" {
+    count = var.is_to_deploy_github_clone_as_lambda == true ? 1 : 0
+    source = "../modules/github-clone-lambda"
+    aws_region = var.aws_region
     aws_sqs_queue_arn = module.common.sqs_queue_arn
     aws_s3_bucket_name = var.aws_s3_bucket_name
 }

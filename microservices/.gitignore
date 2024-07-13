@@ -1,0 +1,3 @@
+# Temporary folder used to deploy lambda on AWS
+**/python
+tmp

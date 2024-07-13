@@ -8,6 +8,11 @@ variable "github_api_version" {
     default = "0.1.0"
 }
 
+variable "is_to_deploy_github_clone_as_lambda" {
+    type = bool
+    default = true
+}
+
 variable "github_clone_version" {
     type = string
     default = "0.1.0"
