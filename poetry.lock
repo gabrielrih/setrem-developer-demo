@@ -2988,6 +2988,26 @@ files = [
 core = ["tree-sitter (>=0.21,<1.0)"]
 
 [[package]]
+name = "tree-sitter-javascript"
+version = "0.21.4"
+description = "Javascript grammar for tree-sitter"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "tree-sitter-javascript-0.21.4.tar.gz", hash = "sha256:5ae97db218c22f16f1fd1108d77c4017b453addc36041136779c99800f23ff20"},
+    {file = "tree_sitter_javascript-0.21.4-cp38-abi3-macosx_10_9_x86_64.whl", hash = "sha256:e0f1d26ec85cc66d56fb25fd41ce499dc5c4a60b478a91754684e2289433daae"},
+    {file = "tree_sitter_javascript-0.21.4-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:e9172dc9e59649d7598c6509103db1648e7187c2bcb39c34222fc052b9db0ac4"},
+    {file = "tree_sitter_javascript-0.21.4-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d45bd39ce931b164f84cfb6a186df504e38c6f91f541e2e60d5a40eb9d574005"},
+    {file = "tree_sitter_javascript-0.21.4-cp38-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:00ff426e9bb552abb49ce3234b083edb1a6aa73bfeea7d9bf0f6bb3d0256c4cd"},
+    {file = "tree_sitter_javascript-0.21.4-cp38-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:c2945bc49985ab396773e2738ae9b1e7d06950d6ad70c535c010fb9b2816a855"},
+    {file = "tree_sitter_javascript-0.21.4-cp38-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:5fc87d07f4c6a7067d4e0f004956a549c05e21eeced3287f3ea2bdd04a71a97a"},
+    {file = "tree_sitter_javascript-0.21.4-cp38-abi3-win_amd64.whl", hash = "sha256:2843b0e81564d8176922ef2b40db128a4de026606d6b1d22a06efb8e8a5c01b8"},
+]
+
+[package.extras]
+core = ["tree-sitter (>=0.21,<1.0)"]
+
+[[package]]
 name = "tree-sitter-python"
 version = "0.21.0"
 description = "Python grammar for tree-sitter"
@@ -3174,4 +3194,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "902b1924136147124ccb3f0146281f6d98be9af6a28946140d89f0bfded4b5b8"
+content-hash = "d894305271ce7eb80d416e35efa8e0fd13353e92707b2df106391377cdc1b2bc"
